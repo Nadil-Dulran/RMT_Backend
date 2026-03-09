@@ -14,7 +14,10 @@ export const register = async (req: Request, res: Response) => {
   );
 
   if (existing.length > 0) {
-   return res.status(400).json({ message: 'Email already exists' });
+   res.status(400).json({
+   success: false,
+   message: 'Email already exists',
+});
   }
 
   await pool.query(
@@ -22,7 +25,10 @@ export const register = async (req: Request, res: Response) => {
     [name, email, phone || null, hashedPassword]
   );
 
-  res.status(201).json({ message: 'User created successfully' });
+  res.status(201).json({
+  success: true,
+  message: 'User created successfully',
+});
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -34,7 +40,10 @@ export const login = async (req: Request, res: Response) => {
   );
 
   if (rows.length === 0) {
-    return res.status(400).json({ message: 'User not found' });
+    return res.status(400).json({
+      success: false,
+      message: 'User not found'
+    });
   }
 
   const user = rows[0];
@@ -42,7 +51,9 @@ export const login = async (req: Request, res: Response) => {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    return res.status(400).json({ message: 'Invalid credentials' });
+    return res.status(400).json({ 
+      success: false,
+      message: 'Invalid credentials' });
   }
 
   const token = jwt.sign(
@@ -52,7 +63,8 @@ export const login = async (req: Request, res: Response) => {
   );
 
   res.json({
-  token,
+    success: true,
+    token,
   user: {
     id: user.id,
     name: user.name,
