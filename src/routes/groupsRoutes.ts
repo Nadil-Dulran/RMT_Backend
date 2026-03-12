@@ -5,7 +5,10 @@ import {
   getGroups,
   getGroupById,
   updateGroup,
-  deleteGroup
+  deleteGroup,
+  addMember,
+  getMembers,
+  removeMember
 } from '../controllers/groupsController';
 
 const router = Router();
@@ -15,5 +18,10 @@ router.get('/', authenticateToken, getGroups);
 router.get('/:id', authenticateToken, getGroupById);
 router.patch('/:id', authenticateToken, updateGroup);
 router.delete('/:id', authenticateToken, deleteGroup);
+
+router.post('/:id/members', authenticateToken, addMember);
+router.get('/:id/members', authenticateToken, getMembers);
+router.delete('/:id/members/:userId', authenticateToken, removeMember);
+
 
 export default router;
