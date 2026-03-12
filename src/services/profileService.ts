@@ -9,7 +9,8 @@ export const getProfile = async (userId: number) => {
       u.name,
       u.email,
       u.phone,
-      s.currency
+      s.currency,
+      u.avatar_base64
     FROM users u
     LEFT JOIN user_profile_settings s
       ON u.id = s.user_id
@@ -27,16 +28,17 @@ export const updateProfile = async (
   name: string,
   email: string,
   phone: string,
-  currency: string
+  currency: string,
+  avatarBase64?: string
 ) => {
 
   await pool.query(
     `
     UPDATE users
-    SET name = ?, email = ?, phone = ?
+    SET name = ?, email = ?, phone = ?, avatar_base64 = ?
     WHERE id = ?
     `,
-    [name, email, phone, userId]
+    [name, email, phone, avatarBase64 || null, userId]
   );
 
   await pool.query(
