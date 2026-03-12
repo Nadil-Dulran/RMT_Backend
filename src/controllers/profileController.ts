@@ -23,14 +23,15 @@ export const updateProfile = async (req: any, res: Response) => {
 
     const userId = req.userId;
 
-    const { name, email, phone, currency } = req.body;
+    const { name, email, phone, currency, avatarBase64 } = req.body;
 
     await profileService.updateProfile(
       userId,
       name,
       email,
       phone,
-      currency
+      currency,
+      avatarBase64
     );
 
     res.json({ message: 'Profile updated successfully' });
