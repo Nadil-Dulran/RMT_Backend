@@ -101,3 +101,61 @@ export const deleteGroup = async (req: Request, res: Response) => {
   }
 
 };
+
+export const addMember = async (req: any, res: Response) => {
+
+  try {
+
+    const groupId = Number(req.params.id);
+    const { userId } = req.body;
+
+    await groupsService.addMember(groupId, userId);
+
+    res.json({ message: 'Member added successfully' });
+
+  } catch (error) {
+
+    res.status(500).json({ message: 'Failed to add member' });
+
+  }
+
+};
+
+
+export const getMembers = async (req: any, res: Response) => {
+
+  try {
+
+    const groupId = Number(req.params.id);
+
+    const members = await groupsService.getMembers(groupId);
+
+    res.json(members);
+
+  } catch (error) {
+
+    res.status(500).json({ message: 'Failed to fetch members' });
+
+  }
+
+};
+
+
+export const removeMember = async (req: any, res: Response) => {
+
+  try {
+
+    const groupId = Number(req.params.id);
+    const userId = Number(req.params.userId);
+
+    await groupsService.removeMember(groupId, userId);
+
+    res.json({ message: 'Member removed' });
+
+  } catch (error) {
+
+    res.status(500).json({ message: 'Failed to remove member' });
+
+  }
+
+};
