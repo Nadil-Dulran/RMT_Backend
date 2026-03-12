@@ -99,3 +99,50 @@ export const deleteGroup = async (groupId: number) => {
   );
 
 };
+
+export const addMember = async (groupId: number, userId: number) => {
+
+  await pool.query(
+    `
+    INSERT INTO group_members (group_id, user_id)
+    VALUES (?, ?)
+    `,
+    [groupId, userId]
+  );
+
+};
+
+
+export const getMembers = async (groupId: number) => {
+
+  const [rows]: any = await pool.query(
+    `
+    SELECT 
+      u.id,
+      u.name,
+      u.email,
+      u.avatar_url
+    FROM group_members gm
+    JOIN users u
+      ON gm.user_id = u.id
+    WHERE gm.group_id = ?
+    `,
+    [groupId]
+  );
+
+  return rows;
+
+};
+
+
+export const removeMember = async (groupId: number, userId: number) => {
+
+  await pool.query(
+    `
+    DELETE FROM group_members
+    WHERE group_id = ? AND user_id = ?
+    `,
+    [groupId, userId]
+  );
+
+};
