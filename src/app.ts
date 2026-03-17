@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import profileRoutes from './routes/profileRoutes';
 import groupsRoutes from './routes/groupsRoutes';
+import expensesRoutes from './routes/expensesRoutes';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/groups', groupsRoutes);
+app.use('/api/expenses', expensesRoutes);
 
 
 
