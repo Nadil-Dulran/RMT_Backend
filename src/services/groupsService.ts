@@ -115,22 +115,57 @@ export const addMember = async (groupId: number, userId: number) => {
 
 export const getMembers = async (groupId: number) => {
 
-  const [rows]: any = await pool.query(
-    `
-    SELECT 
-      u.id,
-      u.name,
-      u.email,
-      u.avatar_url
-    FROM group_members gm
-    JOIN users u
-      ON gm.user_id = u.id
-    WHERE gm.group_id = ?
-    `,
-    [groupId]
-  );
+  try {
 
-  return rows;
+    const [rows]: any = await pool.query(
+      `
+      SELECT 
+        u.id,
+        u.name,
+        u.email,
+        u.avatar_url,
+        u.avatar_base64 AS avatarBase64,
+        u.avatar_base64 AS avatar_base64,
+        u.avatar_mime AS avatarMime,
+        u.avatar_mime AS avatar_mime
+      FROM group_members gm
+      JOIN users u
+        ON gm.user_id = u.id
+      WHERE gm.group_id = ?
+      `,
+      [groupId]
+    );
+
+    return rows;
+
+  } catch (error: any) {
+
+    if (error?.code !== 'ER_BAD_FIELD_ERROR') {
+      throw error;
+    }
+
+    const [rows]: any = await pool.query(
+      `
+      SELECT 
+        u.id,
+        u.name,
+        u.email,
+        u.avatar_url,
+        u.avatar_base64 AS avatarBase64,
+        u.avatar_base64 AS avatar_base64,
+        NULL AS avatarMime,
+        NULL AS avatar_mime
+      FROM group_members gm
+      JOIN users u
+        ON gm.user_id = u.id
+      WHERE gm.group_id = ?
+      `,
+      [groupId]
+    );
+
+    return rows;
+
+  }
 
 };
 
