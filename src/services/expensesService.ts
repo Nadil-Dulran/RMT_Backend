@@ -9,37 +9,126 @@ export const createExpense = async (userId: number, data: any) => {
     await connection.beginTransaction();
 
     const {
-      groupId,
       description,
       amount,
       category,
+      groupId,
+      paidById,
       date,
+      splitType,
       splits
     } = data;
 
-    // 1. Insert expense
+    // 🔴 1. Basic validation
+    if (!description || !amount || !groupId || !paidById || !splitType) {
+      throw new Error('Missing required fields');
+    }
+
+    if (!Array.isArray(splits) || splits.length === 0) {
+      throw new Error('Splits are required');
+    }
+
+    // 🔴 2. Insert expense
     const [result]: any = await connection.query(
       `
       INSERT INTO expenses
-      (group_id, created_by, title, amount, category, expense_date)
-      VALUES (?, ?, ?, ?, ?, ?)
+      (group_id, created_by, paid_by, title, amount, category, expense_date, split_type)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `,
-      [groupId, userId, description, amount, category, date]
+      [
+        groupId,
+        userId,
+        paidById,
+        description,
+        amount,
+        category,
+        date,
+        splitType
+      ]
     );
 
     const expenseId = result.insertId;
 
-    // 2. Insert splits
-    for (const split of splits) {
+    // 🔥 3. Handle split logic
+    let calculatedSplits: any[] = [];
+
+    if (splitType === 'equal') {
+
+      const splitAmount = amount / splits.length;
+
+      calculatedSplits = splits.map((s: any) => ({
+        userId: s.userId,
+        amount: Number(splitAmount.toFixed(2)),
+        percentage: null
+      }));
+
+    }
+
+    else if (splitType === 'exact') {
+
+      let total = 0;
+
+      splits.forEach((s: any) => {
+        total += Number(s.amount);
+      });
+
+      if (Math.abs(total - amount) > 0.01) {
+        throw new Error('Split total does not match expense amount');
+      }
+
+      calculatedSplits = splits.map((s: any) => ({
+        userId: s.userId,
+        amount: Number(s.amount),
+        percentage: null
+      }));
+
+    }
+
+    else if (splitType === 'percentage') {
+
+      let totalPercent = 0;
+
+      calculatedSplits = splits.map((s: any) => {
+
+        totalPercent += Number(s.percentage);
+
+        const calculatedAmount = (amount * s.percentage) / 100;
+
+        return {
+          userId: s.userId,
+          amount: Number(calculatedAmount.toFixed(2)),
+          percentage: Number(s.percentage)
+        };
+
+      });
+
+      if (Math.abs(totalPercent - 100) > 0.1) {
+        throw new Error('Total percentage must be 100%');
+      }
+
+    }
+
+    else {
+      throw new Error('Invalid split type');
+    }
+
+    // 🔴 4. Insert splits
+    for (const split of calculatedSplits) {
 
       await connection.query(
         `
         INSERT INTO expense_splits
-        (expense_id, user_id, share_amount)
-        VALUES (?, ?, ?)
+        (expense_id, user_id, share_amount, percentage)
+        VALUES (?, ?, ?, ?)
         `,
-        [expenseId, split.userId, split.amount]
+        [
+          expenseId,
+          split.userId,
+          split.amount,
+          split.percentage
+        ]
       );
+
     }
 
     await connection.commit();
@@ -65,16 +154,34 @@ export const getExpenses = async (groupId: number) => {
     throw new Error('Invalid group id');
   }
 
-  const [rows]: any = await pool.query(
+  const [expenses]: any = await pool.query(
     `
-    SELECT * FROM expenses
-    WHERE group_id = ?
-    ORDER BY expense_date DESC
+    SELECT DISTINCT e.* FROM expenses e
+    WHERE e.group_id = ?
+    ORDER BY e.expense_date DESC
     `,
     [groupId]
   );
 
-  return rows;
+  // Fetch splits for each expense
+  const expensesWithSplits = await Promise.all(
+    expenses.map(async (expense: any) => {
+      const [splits]: any = await pool.query(
+        `
+        SELECT id, user_id, share_amount, percentage FROM expense_splits
+        WHERE expense_id = ?
+        `,
+        [expense.id]
+      );
+
+      return {
+        ...expense,
+        splits
+      };
+    })
+  );
+
+  return expensesWithSplits;
 
 };
 
