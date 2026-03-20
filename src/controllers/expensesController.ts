@@ -13,22 +13,19 @@ const parsePositiveInt = (value: unknown): number | null => {
 
 };
 
-export const createExpense = async (req: any, res: Response) => {
+export const createExpense = async (req: any, res: any) => {
 
   try {
 
     const userId = req.userId;
 
-    const expense = await expensesService.createExpense(
-      userId,
-      req.body
-    );
+    const result = await expensesService.createExpense(userId, req.body);
 
-    res.status(201).json(expense);
+    res.status(201).json(result);
 
-  } catch (error) {
+  } catch (error: any) {
 
-    res.status(500).json({ message: 'Failed to create expense' });
+    res.status(400).json({ message: error.message });
 
   }
 
