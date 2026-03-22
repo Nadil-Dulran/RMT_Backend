@@ -22,3 +22,19 @@ This backend currently provides:
 
 ---
 
+## Technology Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Node.js | 20+ recommended | Runtime |
+| TypeScript | 5.9.x | Typed backend development |
+| Express | 5.2.x | HTTP API framework |
+| MySQL | 8+ recommended | Relational database |
+| mysql2 | 3.18.x | DB driver + pooled connections |
+| jsonwebtoken | 9.x | JWT token generation/validation |
+| bcrypt | 6.x | Password hashing |
+| cors | 2.8.x | Cross-origin API access |
+| dotenv | 17.x | Environment variable loading |
+| ts-node-dev | 2.x | Development server with auto-reload |
+
+---
