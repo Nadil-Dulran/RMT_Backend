@@ -13,3 +13,12 @@ This backend currently provides:
 
 ---
 
+## Related Repository
+
+| Layer | Repository |
+|---|---|
+| Frontend | https://github.com/Nadil-Dulran/RoommateExpenseTracker |
+| Backend (this repo) | https://github.com/Nadil-Dulran/RMT_Backend |
+
+---
+
