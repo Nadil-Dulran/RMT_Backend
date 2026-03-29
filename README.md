@@ -38,3 +38,38 @@ This backend currently provides:
 | ts-node-dev | 2.x | Development server with auto-reload |
 
 ---
+
+## Project Structure
+
+```
+RMT_Backend/
+├── package.json
+├── tsconfig.json
+├── README.md
+└── src/
+		├── app.ts                         # Express app + route registration
+		├── server.ts                      # Server bootstrap + DB connection test
+		├── config/
+		│   └── db.ts                      # MySQL pool configuration
+		├── controllers/
+		│   ├── authController.ts
+		│   ├── profileController.ts
+		│   ├── groupsController.ts
+		│   └── expensesController.ts
+		├── middleware/
+		│   └── authMiddleware.ts          # JWT auth middleware
+		├── routes/
+		│   ├── authRoutes.ts
+		│   ├── userRoutes.ts
+		│   ├── profileRoutes.ts
+		│   ├── groupsRoutes.ts
+		│   └── expensesRoutes.ts
+		├── services/
+		│   ├── profileService.ts
+		│   ├── groupsService.ts
+		│   └── expensesService.ts
+		├── models/                        # Currently empty
+		└── utils/                         # Reserved for future utilities
+```
+
+---
