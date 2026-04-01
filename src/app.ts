@@ -5,6 +5,7 @@ import userRoutes from './routes/userRoutes';
 import profileRoutes from './routes/profileRoutes';
 import groupsRoutes from './routes/groupsRoutes';
 import expensesRoutes from './routes/expensesRoutes';
+import settlementsRoutes from './routes/settlementsRoutes';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/groups', groupsRoutes);
 app.use('/api/expenses', expensesRoutes);
+app.use('/api/settlements', settlementsRoutes);
 
 
 
