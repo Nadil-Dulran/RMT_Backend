@@ -8,6 +8,7 @@ This backend currently provides:
 
 - JWT-based authentication (register and login)
 - Protected user and profile endpoints
+- Protected dashboard endpoint
 - Group CRUD and member management
 - Expense CRUD with split logic (equal, exact, percentage)
 
