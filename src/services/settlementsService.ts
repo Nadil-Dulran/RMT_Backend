@@ -2,37 +2,46 @@ import pool from '../config/db';
 
 export const createSettlement = async (userId: number, data: any) => {
 
-  const { groupId, receiverId, amount, method, notes } = data;
+  const { groupId, payerId, receiverId, amount, method, notes } = data;
 
-  if (!groupId || !receiverId || !amount) {
+  if (!groupId || !payerId || !receiverId || !amount) {
     throw new Error('Missing fields');
+  }
+
+  const payer = Number(payerId);
+  const receiver = Number(receiverId);
+
+  if (!Number.isInteger(payer) || !Number.isInteger(receiver) || payer === receiver) {
+    throw new Error('Invalid payer/receiver');
+  }
+
+  if (userId !== payer && userId !== receiver) {
+    throw new Error('You are not part of this settlement');
   }
 
   if (amount <= 0) {
     throw new Error('Amount must be greater than 0');
   }
 
-  // 🔥 Validate both users are in group
   const [members]: any = await pool.query(
     `
     SELECT user_id FROM group_members
     WHERE group_id = ? AND user_id IN (?, ?)
     `,
-    [groupId, userId, receiverId]
+    [groupId, payer, receiver]
   );
 
   if (members.length < 2) {
     throw new Error('Users not in same group');
   }
 
-  // 🔥 Insert settlement
   const [result]: any = await pool.query(
     `
     INSERT INTO settlements
     (group_id, payer_id, receiver_id, amount, method, notes)
     VALUES (?, ?, ?, ?, ?, ?)
     `,
-    [groupId, userId, receiverId, amount, method || 'CASH', notes || null]
+    [groupId, payer, receiver, amount, method || 'CASH', notes || null]
   );
 
   return { id: result.insertId };
