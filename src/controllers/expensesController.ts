@@ -60,6 +60,8 @@ export const updateExpense = async (req: Request, res: Response) => {
 
   try {
 
+    console.log('PATCH /api/expenses/:id body:', req.body);
+
     const expenseId = parsePositiveInt(req.params.id);
 
     if (expenseId === null) {
@@ -71,9 +73,10 @@ export const updateExpense = async (req: Request, res: Response) => {
 
     res.json({ message: 'Expense updated successfully' });
 
-  } catch (error) {
+  } catch (error: any) {
 
-    res.status(500).json({ message: 'Update failed' });
+    console.error('PATCH /api/expenses/:id error:', error?.message || error);
+    res.status(400).json({ message: error?.message || 'Update failed' });
 
   }
 
