@@ -74,3 +74,13 @@ RMT_Backend/
 ```
 
 ---
+
+## Prerequisites
+
+Install and configure:
+
+- Node.js (v20 or later recommended)
+- MySQL server
+- npm
+
+---
