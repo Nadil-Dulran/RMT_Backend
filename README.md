@@ -130,3 +130,11 @@ Expected startup logs include:
 - Server running on port 3000
 
 ---
+
+## NPM Scripts
+
+| Script | Command | Purpose |
+|---|---|---|
+| dev | ts-node-dev --respawn --transpile-only src/server.ts | Start backend with hot reload |
+
+---
