@@ -84,3 +84,26 @@ Install and configure:
 - npm
 
 ---
+
+## Environment Variables
+
+Create a .env file in the project root with values like:
+
+```
+PORT=3000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=roommate_expense_tracker
+
+JWT_SECRET=replace_with_a_strong_secret
+```
+
+Notes:
+
+- PORT defaults to 3000 if not set.
+- JWT_SECRET is required for login token generation and token verification.
+
+---
