@@ -107,3 +107,26 @@ Notes:
 - JWT_SECRET is required for login token generation and token verification.
 
 ---
+
+## Installation and Run (VS Code / macOS)
+
+1. Install dependencies
+
+```
+npm install
+```
+
+2. Start MySQL and ensure your target database exists
+
+3. Start backend in development mode
+
+```
+npm run dev
+```
+
+Expected startup logs include:
+
+- MySQL Connected
+- Server running on port 3000
+
+---
