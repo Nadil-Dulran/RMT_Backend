@@ -138,3 +138,23 @@ Expected startup logs include:
 | dev | ts-node-dev --respawn --transpile-only src/server.ts | Start backend with hot reload |
 
 ---
+
+## API Base URL
+
+Local:
+
+- http://localhost:3000
+
+Route prefix used by the mobile app:
+
+- /api
+
+Dashboard route:
+
+- GET /api/dashboard
+
+Health route:
+
+- GET / returns API is running...
+
+---
