@@ -168,3 +168,58 @@ Protected endpoints require:
 Token payload stores user id and expires in 1 day.
 
 ---
+
+## Endpoint Reference
+
+### Auth
+
+Base path: /api/auth
+
+1. POST /register
+
+Request body:
+
+```
+{
+	"name": "Nadil",
+	"email": "nadil@example.com",
+	"phone": "0771234567",
+	"password": "secret123"
+}
+```
+
+Responses:
+
+- 201: user created
+- 400: email already exists
+
+2. POST /login
+
+Request body:
+
+```
+{
+	"email": "nadil@example.com",
+	"password": "secret123"
+}
+```
+
+Success response:
+
+```
+{
+	"success": true,
+	"token": "...",
+	"user": {
+		"id": 1,
+		"name": "Nadil",
+		"email": "nadil@example.com",
+		"phone": "0771234567"
+	}
+}
+```
+
+Possible errors:
+
+- 400: user not found
+- 400: invalid credentials
