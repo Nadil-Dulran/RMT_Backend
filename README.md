@@ -158,3 +158,13 @@ Health route:
 - GET / returns API is running...
 
 ---
+
+## Authentication
+
+Protected endpoints require:
+
+- Header Authorization: Bearer <JWT_TOKEN>
+
+Token payload stores user id and expires in 1 day.
+
+---
