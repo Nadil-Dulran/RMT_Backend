@@ -1,4 +1,5 @@
 import pool from '../config/db';
+import { notifyUsers } from './notificationsService';
 
 export const createSettlement = async (userId: number, data: any) => {
 
@@ -42,6 +43,23 @@ export const createSettlement = async (userId: number, data: any) => {
     VALUES (?, ?, ?, ?, ?, ?)
     `,
     [groupId, payer, receiver, amount, method || 'CASH', notes || null]
+  );
+
+  await notifyUsers(
+    [payer, receiver],
+    'settlement_created',
+    'New settlement recorded',
+    `Settlement of ${amount} was recorded`,
+    {
+      settlementId: result.insertId,
+      groupId: Number(groupId),
+      payerId: payer,
+      receiverId: receiver,
+      amount: Number(amount),
+      method: method || 'CASH'
+    },
+    [userId],
+    userId
   );
 
   return { id: result.insertId };

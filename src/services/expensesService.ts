@@ -1,4 +1,5 @@
 import pool from '../config/db';
+import { notifyGroupMembers } from './notificationsService';
 
 const normalizeExpenseDate = (value: any): string => {
   if (!value) {
@@ -158,6 +159,22 @@ export const createExpense = async (userId: number, data: any) => {
 
     await connection.commit();
 
+    await notifyGroupMembers(
+      Number(groupId),
+      'expense_created',
+      'New expense added',
+      `${description} was added to the group`,
+      {
+        expenseId,
+        description,
+        amount: Number(amount),
+        paidById,
+        splitType
+      },
+      [userId],
+      userId
+    );
+
     return { id: expenseId };
 
   } catch (error) {
@@ -210,7 +227,7 @@ export const getExpenses = async (groupId: number) => {
 
 };
 
-export const updateExpense = async (expenseId: number, data: any) => {
+export const updateExpense = async (expenseId: number, data: any, actorUserId?: number) => {
 
   const connection = await pool.getConnection();
 
@@ -250,7 +267,7 @@ export const updateExpense = async (expenseId: number, data: any) => {
 
     const [existingRows]: any = await connection.query(
       `
-      SELECT id, title, amount, category, expense_date, split_type
+      SELECT id, group_id, title, amount, category, expense_date, split_type
       FROM expenses
       WHERE id = ?
       LIMIT 1
@@ -386,6 +403,21 @@ export const updateExpense = async (expenseId: number, data: any) => {
     }
 
     await connection.commit();
+
+    await notifyGroupMembers(
+      Number(existing.group_id),
+      'expense_updated',
+      'Expense updated',
+      `${resolvedDescription} was updated`,
+      {
+        expenseId,
+        description: resolvedDescription,
+        amount: resolvedAmount,
+        splitType: resolvedSplitType
+      },
+      [],
+      actorUserId
+    );
 
   } catch (error) {
 
