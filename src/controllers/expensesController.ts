@@ -69,7 +69,9 @@ export const updateExpense = async (req: Request, res: Response) => {
       return;
     }
 
-    await expensesService.updateExpense(expenseId, req.body);
+    const actorUserId = (req as any).userId;
+
+    await expensesService.updateExpense(expenseId, req.body, actorUserId);
 
     res.json({ message: 'Expense updated successfully' });
 
