@@ -70,8 +70,9 @@ export const updateGroup = async (req: Request, res: Response) => {
 
     const { id } = req.params;
     const { name, description, emoji } = req.body;
+    const actorUserId = (req as any).userId;
 
-    await groupsService.updateGroup(Number(id), name, description, emoji);
+    await groupsService.updateGroup(Number(id), name, description, emoji, actorUserId);
 
     res.json({ message: 'Group updated successfully' });
 
@@ -89,8 +90,9 @@ export const deleteGroup = async (req: Request, res: Response) => {
   try {
 
     const { id } = req.params;
+    const actorUserId = (req as any).userId;
 
-    await groupsService.deleteGroup(Number(id));
+    await groupsService.deleteGroup(Number(id), actorUserId);
 
     res.json({ message: 'Group deleted successfully' });
 
@@ -108,8 +110,9 @@ export const addMember = async (req: any, res: Response) => {
 
     const groupId = Number(req.params.id);
     const { userId } = req.body;
+    const actorUserId = req.userId;
 
-    await groupsService.addMember(groupId, userId);
+    await groupsService.addMember(groupId, userId, actorUserId);
 
     res.json({ message: 'Member added successfully' });
 
@@ -147,8 +150,9 @@ export const removeMember = async (req: any, res: Response) => {
 
     const groupId = Number(req.params.id);
     const userId = Number(req.params.userId);
+    const actorUserId = req.userId;
 
-    await groupsService.removeMember(groupId, userId);
+    await groupsService.removeMember(groupId, userId, actorUserId);
 
     res.json({ message: 'Member removed' });
 
