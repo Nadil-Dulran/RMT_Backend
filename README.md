@@ -265,3 +265,47 @@ Behavior:
 
 - Updates users.name, users.email, users.phone, users.avatar_base64
 - Upserts user_profile_settings.currency
+
+### Groups
+
+Base path: /api/groups
+
+1. POST / (protected)
+
+- Creates a group in user_groups
+- Automatically adds creator as admin in group_members
+
+2. GET / (protected)
+
+- Returns groups where authenticated user is a member
+
+3. GET /:id (protected)
+
+- Returns a single group by id
+
+4. PATCH /:id (protected)
+
+- Updates name, description, emoji
+
+5. DELETE /:id (protected)
+
+- Deletes group by id
+
+6. POST /:id/members (protected)
+
+Request body:
+
+```
+{
+	"userId": 2
+}
+```
+
+7. GET /:id/members (protected)
+
+- Returns users in the group
+- Includes avatar-related fields when available
+
+8. DELETE /:id/members/:userId (protected)
+
+- Removes a member from group_members
