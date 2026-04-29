@@ -223,3 +223,18 @@ Possible errors:
 
 - 400: user not found
 - 400: invalid credentials
+
+### User
+
+Base path: /api/user
+
+1. GET /profile (protected)
+
+Returns a simple protected-route check payload:
+
+```
+{
+	"message": "Protected route",
+	"userId": 1
+}
+```
