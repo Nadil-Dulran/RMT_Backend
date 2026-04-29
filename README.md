@@ -238,3 +238,30 @@ Returns a simple protected-route check payload:
 	"userId": 1
 }
 ```
+
+### Profile
+
+Base path: /api/profile
+
+1. GET / (protected)
+
+Returns merged profile data from users + user_profile_settings.
+
+2. PATCH / (protected)
+
+Request body:
+
+```
+{
+	"name": "Nadil Dulran",
+	"email": "nadil@example.com",
+	"phone": "0771234567",
+	"currency": "LKR",
+	"avatarBase64": "<base64-string-or-null>"
+}
+```
+
+Behavior:
+
+- Updates users.name, users.email, users.phone, users.avatar_base64
+- Upserts user_profile_settings.currency
