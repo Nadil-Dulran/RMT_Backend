@@ -394,3 +394,68 @@ Behavior:
 2. GET /?groupId=<id> (protected)
 
 - Returns settlements for the group ordered by newest first
+
+### Notifications
+
+Base path: /api/notifications
+
+1. GET / (protected)
+
+Query:
+
+- `unreadOnly=true` returns unread notifications only
+- omit `unreadOnly` or set `unreadOnly=false` to return full list
+
+Response item shape:
+
+```
+{
+	"id": 123,
+	"type": "expense_settled",
+	"title": "Expense settled",
+	"message": "Dinner split settled by Nimal to Aravinda",
+	"data": {
+		"groupName": "Weekend Trip",
+		"groupEmoji": "🏖️",
+		"relatedUser": {
+			"id": 45,
+			"name": "Nimal",
+			"avatar_base64": "..."
+		}
+	},
+	"is_read": false,
+	"read_at": null,
+	"created_at": "2026-04-17T10:00:00.000Z"
+}
+```
+
+2. GET /subscribe (protected)
+
+- Opens an SSE stream for live notifications
+- Emits named `notification` events
+
+3. PATCH /:id/read (protected)
+
+- Marks one notification as read
+
+4. PATCH /read-all (protected)
+
+- Marks all unread notifications as read
+
+5. DELETE /purge-read (protected)
+
+Query:
+
+- `olderThanDays` defaults to `2`
+
+- Deletes read notifications for the authenticated user that are older than the retention window
+
+Returned shape:
+
+```
+{
+	"success": true,
+	"deleted": 14
+}
+```
+
