@@ -309,3 +309,50 @@ Request body:
 8. DELETE /:id/members/:userId (protected)
 
 - Removes a member from group_members
+
+### Expenses
+
+Base path: /api/expenses
+
+1. POST / (protected)
+
+Create expense with split support.
+
+Request body example:
+
+```
+{
+	"description": "Electricity Bill",
+	"amount": 6000,
+	"category": "Utilities",
+	"groupId": 1,
+	"paidById": 1,
+	"date": "2026-03-22",
+	"splitType": "equal",
+	"splits": [
+		{ "userId": 1 },
+		{ "userId": 2 }
+	]
+}
+```
+
+Supported split types:
+
+- equal: amount split equally among provided members
+- exact: each split must provide amount, total must match expense amount
+- percentage: each split must provide percentage, total must be 100
+
+2. GET /?groupId=<id> (protected)
+
+- groupId is required and must be a positive integer
+- Returns expense list ordered by expense_date DESC
+- Each expense includes its splits
+
+3. PATCH /:id (protected)
+
+- Updates description, amount, category, date
+- Replaces all existing splits for the expense
+
+4. DELETE /:id (protected)
+
+- Deletes expense by id
