@@ -356,3 +356,41 @@ Supported split types:
 4. DELETE /:id (protected)
 
 - Deletes expense by id
+
+### Settlements
+
+Base path: /api/settlements
+
+1. POST / (protected)
+
+Record a settlement between two users in the same group.
+
+Request body example:
+
+```
+{
+	"groupId": 1,
+	"payerId": 1,
+	"receiverId": 2,
+	"amount": 1500,
+	"method": "CASH",
+	"notes": "Paid after dinner",
+	"description": "Dinner split",
+	"expenseId": 42
+}
+```
+
+Behavior:
+
+- `description` is used as the primary settlement message when present.
+- If `description` is missing, `notes` is used as the fallback message.
+- The backend notification payload includes:
+  - `description` or `notes`
+  - `payerName`
+  - `receiverName`
+  - `method`
+  - `expenseId`
+
+2. GET /?groupId=<id> (protected)
+
+- Returns settlements for the group ordered by newest first
