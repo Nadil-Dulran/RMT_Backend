@@ -484,3 +484,20 @@ Important columns referenced by code include:
 Some queries also attempt optional avatar columns (avatar_url, avatar_mime) for compatibility.
 
 ---
+
+## Error Behavior
+
+Common authentication errors:
+
+- 401: token required
+- 403: invalid token
+
+Validation examples currently implemented:
+
+- invalid expense id -> 400
+- invalid groupId query parameter -> 400
+- invalid split totals/percentages -> 400
+
+Unhandled/internal failures generally return 500.
+
+---
