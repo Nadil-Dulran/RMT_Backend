@@ -501,3 +501,15 @@ Validation examples currently implemented:
 Unhandled/internal failures generally return 500.
 
 ---
+
+## Frontend Integration
+
+For Android emulator, the frontend should call:
+
+- http://10.0.2.2:3000/api
+
+For iOS simulator/local browser testing:
+
+- http://localhost:3000/api
+
+---
