@@ -459,3 +459,28 @@ Returned shape:
 }
 ```
 
+---
+
+## Database Notes
+
+The current implementation uses these tables:
+
+- users
+- user_profile_settings
+- user_groups
+- group_members
+- expenses
+- expense_splits
+
+Important columns referenced by code include:
+
+- users: id, name, email, phone, password, avatar_base64
+- user_profile_settings: user_id, currency
+- user_groups: id, name, description, emoji, created_by
+- group_members: group_id, user_id, role
+- expenses: id, group_id, created_by, paid_by, title, amount, category, expense_date, split_type
+- expense_splits: expense_id, user_id, share_amount, percentage
+
+Some queries also attempt optional avatar columns (avatar_url, avatar_mime) for compatibility.
+
+---
