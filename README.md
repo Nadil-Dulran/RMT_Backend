@@ -513,3 +513,12 @@ For iOS simulator/local browser testing:
 - http://localhost:3000/api
 
 ---
+
+
+## Author
+
+Nadil Dulran
+
+Intern Full Stack Software Engineer at Akvasoft (PVT) LTD
+
+This project is developed as part of an internship and is used by the React Native Roommate Expense Tracker frontend.
