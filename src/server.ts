@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import app from './app';
 import pool from './config/db';
 import { startNotificationPurgeScheduler } from './jobs/notificationPurgeScheduler';
+import { startPasswordResetCleanupScheduler } from './jobs/passwordResetCleanupScheduler';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const startServer = async () => {
     await pool.getConnection();
     console.log('✅ MySQL Connected');
     startNotificationPurgeScheduler();
+    startPasswordResetCleanupScheduler();
     app.listen(PORT, () =>
       console.log(`🚀 Server running on port ${PORT}`)
     );
