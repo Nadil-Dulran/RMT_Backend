@@ -43,3 +43,28 @@ export const updateProfile = async (req: any, res: Response) => {
   }
 
 };
+
+export const deleteAccount = async (req: any, res: Response) => {
+
+  try {
+
+    const userId = Number(req.userId);
+
+    if (!Number.isInteger(userId) || userId <= 0) {
+      return res.status(400).json({ message: 'Invalid user' });
+    }
+
+    await profileService.deleteAccount(userId);
+
+    return res.json({
+      success: true,
+      message: 'Account deleted successfully'
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({ message: 'Account deletion failed' });
+
+  }
+
+};
