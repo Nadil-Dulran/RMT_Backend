@@ -7,6 +7,7 @@ Status: Active development.
 This backend currently provides:
 
 - JWT-based authentication (register and login)
+- Password reset code flow with secure reset session tracking
 - Protected user and profile endpoints
 - Protected dashboard endpoint
 - Group CRUD and member management
@@ -34,6 +35,7 @@ This backend currently provides:
 | mysql2 | 3.18.x | DB driver + pooled connections |
 | jsonwebtoken | 9.x | JWT token generation/validation |
 | bcrypt | 6.x | Password hashing |
+| nodemailer | 6.x | SMTP email delivery for reset codes |
 | cors | 2.8.x | Cross-origin API access |
 | dotenv | 17.x | Environment variable loading |
 | ts-node-dev | 2.x | Development server with auto-reload |
@@ -99,12 +101,20 @@ DB_PASSWORD=your_password
 DB_NAME=roommate_expense_tracker
 
 JWT_SECRET=replace_with_a_strong_secret
+
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_smtp_username
+SMTP_PASSWORD=your_smtp_password
+EMAIL_FROM=no-reply@example.com
 ```
 
 Notes:
 
 - PORT defaults to 3000 if not set.
 - JWT_SECRET is required for login token generation and token verification.
+- SMTP settings are optional. If they are not configured, the backend logs the reset code in the server console for development.
 
 ---
 
@@ -224,6 +234,106 @@ Possible errors:
 - 400: user not found
 - 400: invalid credentials
 
+3. POST /forgot-password/request-code
+
+Request body:
+
+```
+{
+	"email": "nadil@example.com"
+}
+```
+
+Success response:
+
+```
+{
+	"message": "Reset code sent to email"
+}
+```
+
+Not found response:
+
+```
+{
+	"message": "Email not found"
+}
+```
+
+4. POST /forgot-password/verify-code
+
+Request body:
+
+```
+{
+	"email": "nadil@example.com",
+	"code": "123456"
+}
+```
+
+Success response:
+
+```
+{
+	"message": "Code verified",
+	"resetToken": "<short-lived-random-token>"
+}
+```
+
+5. POST /forgot-password/reset
+
+Request body:
+
+```
+{
+	"resetToken": "<token>",
+	"newPassword": "newPass123",
+	"confirmPassword": "newPass123"
+}
+```
+
+Success response:
+
+```
+{
+	"message": "Password updated successfully"
+}
+```
+
+Database table required for password reset sessions:
+
+```
+CREATE TABLE password_reset_codes (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	user_id BIGINT NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	code_hash VARCHAR(255) NOT NULL,
+	expires_at TIMESTAMP NOT NULL,
+	attempts INT NOT NULL DEFAULT 0,
+	max_attempts INT NOT NULL DEFAULT 5,
+	is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+	verified_at TIMESTAMP NULL,
+	reset_token_hash VARCHAR(255) NULL,
+	reset_token_expires_at TIMESTAMP NULL,
+	used_at TIMESTAMP NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	INDEX idx_password_reset_email (email),
+	INDEX idx_password_reset_token_hash (reset_token_hash),
+	CONSTRAINT fk_password_reset_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
+
+Backend rules implemented:
+
+- 6-digit reset codes are generated with secure RNG.
+- Reset codes and reset tokens are hashed before storage.
+- Reset codes expire after 10 minutes.
+- Verification attempts are capped at 5.
+- Request-code is rate-limited to 3 requests per 15 minutes per email and IP in memory.
+- Old unused reset rows are invalidated when a new code is generated.
+- Reset tokens are short-lived and single-use.
+- Passwords are hashed with bcrypt before saving.
+
 ### User
 
 Base path: /api/user
@@ -265,6 +375,25 @@ Behavior:
 
 - Updates users.name, users.email, users.phone, users.avatar_base64
 - Upserts user_profile_settings.currency
+
+3. DELETE / (protected)
+
+- Deletes the authenticated account and related user-owned rows
+- Requires Authorization: Bearer <JWT_TOKEN>
+
+Frontend usage example:
+
+```ts
+await fetch('/api/profile', {
+
+	method: 'DELETE',
+	headers: {
+		Authorization: `Bearer ${token}`
+	}
+});
+```
+
+After a successful response, clear the stored token/session and redirect the user to the login screen.
 
 ### Groups
 
