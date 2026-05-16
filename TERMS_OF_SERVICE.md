@@ -8,3 +8,17 @@ By accessing and using the Roommate Expense Tracker ("App", "Service", "we", "us
 
 ---
 
+## 2. Use License
+
+Permission is granted to temporarily download one copy of the materials (including information and software) on the Roommate Expense Tracker App for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+
+- Modifying or copying the materials
+- Using the materials for any commercial purpose or for any public display
+- Attempting to decompile or reverse engineer any software contained on the App
+- Removing any copyright or other proprietary notations from the materials
+- Transferring the materials to another person or "mirroring" the materials on any other server
+- Accessing or searching the App by any means other than the App's publicly supported interfaces
+- Using automated tools to access the App (scrapers, bots, etc.)
+- Attempting to gain unauthorized access to the App or its systems
+
+---
