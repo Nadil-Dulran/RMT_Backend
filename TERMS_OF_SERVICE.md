@@ -22,3 +22,11 @@ Permission is granted to temporarily download one copy of the materials (includi
 - Attempting to gain unauthorized access to the App or its systems
 
 ---
+
+## 3. Disclaimer of Warranties
+
+The materials on the Roommate Expense Tracker App are provided on an "as-is" basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+
+Further, we do not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the internet web site or otherwise relating to such materials or on any sites linked to this site.
+
+---
