@@ -30,3 +30,9 @@ The materials on the Roommate Expense Tracker App are provided on an "as-is" bas
 Further, we do not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on the internet web site or otherwise relating to such materials or on any sites linked to this site.
 
 ---
+
+## 4. Limitations of Liability
+
+In no event shall the Roommate Expense Tracker or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the Roommate Expense Tracker App, even if we or our authorized representative has been notified orally or in writing of the possibility of such damage.
+
+---
