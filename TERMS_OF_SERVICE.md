@@ -36,3 +36,9 @@ Further, we do not warrant or make any representations concerning the accuracy, 
 In no event shall the Roommate Expense Tracker or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the Roommate Expense Tracker App, even if we or our authorized representative has been notified orally or in writing of the possibility of such damage.
 
 ---
+
+## 5. Accuracy of Materials
+
+The materials appearing on the Roommate Expense Tracker App could include technical, typographical, or photographic errors. We do not warrant that any of the materials on the App are accurate, complete, or current. We may make changes to the materials contained on the App at any time without notice.
+
+---
