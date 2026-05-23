@@ -48,3 +48,19 @@ The materials appearing on the Roommate Expense Tracker App could include techni
 The materials on the Roommate Expense Tracker App are owned or controlled by us. All intellectual property rights in and to the App, including all content, features, and functionality, are owned by us, our licensors, or other providers of such material.
 
 ---
+
+## 7. Limitations on Use
+
+Prohibited Activities:
+- Harassment, threats, or abuse of other users
+- Uploading malware, spyware, or harmful content
+- Attempting to disrupt App operations or security
+- Creating multiple fraudulent accounts
+- Using the App for illegal purposes
+- Violating any applicable laws or regulations
+- Infringing on intellectual property rights
+- Phishing or social engineering attacks
+- Unauthorized access attempts
+
+---
+
