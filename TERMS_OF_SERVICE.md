@@ -42,3 +42,9 @@ In no event shall the Roommate Expense Tracker or its suppliers be liable for an
 The materials appearing on the Roommate Expense Tracker App could include technical, typographical, or photographic errors. We do not warrant that any of the materials on the App are accurate, complete, or current. We may make changes to the materials contained on the App at any time without notice.
 
 ---
+
+## 6. Materials and Content Ownership
+
+The materials on the Roommate Expense Tracker App are owned or controlled by us. All intellectual property rights in and to the App, including all content, features, and functionality, are owned by us, our licensors, or other providers of such material.
+
+---
