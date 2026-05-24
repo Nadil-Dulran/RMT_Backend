@@ -64,3 +64,14 @@ Prohibited Activities:
 
 ---
 
+## 8. User Accounts and Passwords
+
+If you create an account on the App, you are responsible for:
+- Maintaining the confidentiality of your password and account information
+- Accepting responsibility for all activities under your account
+- Notifying us immediately of unauthorized account access
+- Ensuring information provided is accurate and complete
+
+We reserve the right to terminate accounts that violate these Terms or engage in prohibited activities.
+
+---
