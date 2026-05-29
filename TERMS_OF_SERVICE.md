@@ -75,3 +75,9 @@ If you create an account on the App, you are responsible for:
 We reserve the right to terminate accounts that violate these Terms or engage in prohibited activities.
 
 ---
+
+## 9. User Content and Responsibilities
+
+### 9.1 Content You Provide
+You retain ownership of any expense data, group information, and other content you generate ("User Content"). By providing User Content, you grant us a license to use it for operating and improving the App.
+
