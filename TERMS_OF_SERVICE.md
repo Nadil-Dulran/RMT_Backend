@@ -81,3 +81,11 @@ We reserve the right to terminate accounts that violate these Terms or engage in
 ### 9.1 Content You Provide
 You retain ownership of any expense data, group information, and other content you generate ("User Content"). By providing User Content, you grant us a license to use it for operating and improving the App.
 
+### 9.2 Your Representations
+You represent and warrant that:
+- You own or have the right to the User Content you provide
+- Your User Content does not violate third-party rights
+- Your User Content is accurate and factual
+- You are responsible for all User Content you generate
+
+---
