@@ -99,3 +99,8 @@ You represent and warrant that:
 - Do not create fraudulent or false expenses
 - Respect privacy of group members' financial information
 
+### 10.2 Expense Calculations
+- The App calculates splits based on your input (equal, exact, percentage)
+- You are responsible for verifying calculations are correct
+- We are not liable for mathematical errors or disputes over amounts
+
