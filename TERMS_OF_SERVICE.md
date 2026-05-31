@@ -89,3 +89,13 @@ You represent and warrant that:
 - You are responsible for all User Content you generate
 
 ---
+
+## 10. Group Management and Expenses
+
+### 10.1 Group Responsibilities
+- Group creators are responsible for managing group membership
+- You are liable for expenses you report and amounts you settle
+- You agree to settle debts fairly and in good faith
+- Do not create fraudulent or false expenses
+- Respect privacy of group members' financial information
+
