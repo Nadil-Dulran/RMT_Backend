@@ -104,3 +104,10 @@ You represent and warrant that:
 - You are responsible for verifying calculations are correct
 - We are not liable for mathematical errors or disputes over amounts
 
+### 10.3 Payment Settlement
+- The App tracks who owes whom; actual payments occur outside the App
+- We do not process payments or handle money transfers
+- Settlement disputes must be resolved between group members
+- We are not party to financial disputes or payment agreements
+
+---
