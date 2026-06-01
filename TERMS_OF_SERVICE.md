@@ -111,3 +111,12 @@ You represent and warrant that:
 - We are not party to financial disputes or payment agreements
 
 ---
+
+## 11. Email and Notifications
+
+- By creating an account, you consent to receive email notifications
+- You can opt-out of non-critical emails in account settings
+- Critical notifications (password resets, security alerts) may still be sent
+- We use Nodemailer for email delivery
+
+---
