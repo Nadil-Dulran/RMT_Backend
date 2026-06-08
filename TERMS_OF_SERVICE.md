@@ -120,3 +120,12 @@ You represent and warrant that:
 - We use Nodemailer for email delivery
 
 ---
+
+## 12. Data Backup and Recovery
+
+- You are responsible for maintaining backups of important expense data
+- The App provides export functionality for data portability
+- We attempt to maintain data integrity but cannot guarantee recovery from all failures
+- In cases of data loss, we will attempt recovery from backups
+
+---
