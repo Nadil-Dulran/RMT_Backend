@@ -129,3 +129,14 @@ You represent and warrant that:
 - In cases of data loss, we will attempt recovery from backups
 
 ---
+
+## 13. Third-Party Links and Services
+
+The App may contain links to third-party websites and services. We:
+- Are not responsible for third-party content, accuracy, or policies
+- Do not endorse third-party services
+- Recommend reviewing their terms and privacy policies
+- Are not liable for issues arising from third-party services
+
+---
+
