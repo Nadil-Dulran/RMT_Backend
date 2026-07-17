@@ -2,7 +2,7 @@
 
 A REST API built with Node.js, Express, TypeScript, and MySQL for the Roommate Expense Tracker mobile app.
 
-Status: Active development.
+Status: Deployed on a Digital Ocean Server.
 
 This backend currently provides:
 
